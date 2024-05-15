@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { hotels } from "./hotels";
+import HotelItem from "./HotelItem";
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -14,11 +15,7 @@ function SearchBar() {
         onChange={(event) => setSearchInput(event.target.value)}
       />
       {filteredHotels.length > 0 ? (
-        filteredHotels.map((hotel) => (
-          <div key={hotel.id}>
-            {hotel.name} {hotel.distance}
-          </div>
-        ))
+        filteredHotels.map((hotel) => <HotelItem hotel={hotel} />)
       ) : (
         <div>No hotels found within the specified radius.</div>
       )}
