@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
+
 function HotelItem({ hotel }) {
+  const id = hotel.id;
   return (
     <>
-      <div class="flex gap-10 border">
+      <div key={hotel.id} class="flex gap-10 border">
         <div>{hotel.name}</div>
         <div> Distance from you: {hotel.distance}</div>
-        <button class="bg-blue-300">Check out hotel</button>
+        <Link to={`hotels/` + id}>Check out hotel</Link>
       </div>
     </>
   );

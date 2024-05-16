@@ -1,8 +1,17 @@
 import Room from "./Room";
 import { useState } from "react";
+import { hotels } from "./hotels";
+import { useLoaderData } from "react-router-dom";
 
-function HotelPage({ hotel }) {
+export async function loader({ params }) {
+  const hotel = hotels[params.hotelId];
+  console.log(hotel);
+  return hotel;
+}
+
+function HotelPage() {
   const [toggledRooms, setToggledRooms] = useState([]);
+  const hotel = useLoaderData();
   const rooms = hotel.rooms.map((room) => (
     <Room
       room={room}
@@ -10,17 +19,16 @@ function HotelPage({ hotel }) {
       setToggledRooms={setToggledRooms}
     />
   ));
+
   return (
-    <>
+    <form>
       <div key={hotel.id} class="flex h-screen flex-col">
         <div>{hotel.name}</div>
         <div> Distance from you: {hotel.distance}</div>
         {rooms}
-        {toggledRooms.map((toggledRoom) => (
-          <div> {toggledRoom} </div>
-        ))}
+        <button type="submit">Submit</button>
       </div>
-    </>
+    </form>
   );
 }
 
