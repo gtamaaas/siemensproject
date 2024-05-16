@@ -4,7 +4,7 @@ import { hotels } from "./hotels";
 import { useLoaderData } from "react-router-dom";
 
 export async function loader({ params }) {
-  const hotel = hotels[params.hotelId];
+  const hotel = hotels[params.hotelId - 1];
   console.log(hotel);
   return hotel;
 }
