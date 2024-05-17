@@ -1,7 +1,6 @@
 import SearchBar from "./Searchbar";
-import { hotels } from "./hotels";
 import { useLoaderData } from "react-router-dom";
-import { useState, useEffect } from "react";
+import axios from "axios";
 
 function getUserLocation() {
   return new Promise((resolve, reject) => {
@@ -25,9 +24,35 @@ function getUserLocation() {
 }
 
 export async function loader() {
-  const userLocation = await getUserLocation();
-  console.log(userLocation);
-  return hotels;
+  try {
+    const userLocation = await getUserLocation();
+
+    const hotelsResponse = await axios.get("http://localhost:8080/hotels");
+    const hotels = hotelsResponse.data;
+
+    let cord1 = {
+      longitude: userLocation.longitude,
+      latitude: userLocation.latitude,
+    };
+
+    let cord2;
+    let newHotels = [];
+    for (const hotel of hotels) {
+      cord2 = { longitude: hotel.longitude, latitude: hotel.latitude };
+      const coordinateRequest = { cord1, cord2 };
+      const res = await axios.post(
+        "http://localhost:8080/coordinates",
+        coordinateRequest
+      );
+      hotel.distance = res.data;
+      newHotels.push(hotel);
+    }
+
+    return newHotels;
+  } catch (error) {
+    console.error("An error occurred while loading data:", error);
+    throw error;
+  }
 }
 
 function App() {
