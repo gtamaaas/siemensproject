@@ -3,6 +3,7 @@ import { useState } from "react";
 import { hotels } from "./hotels";
 import { useLoaderData } from "react-router-dom";
 import { Form, redirect } from "react-router-dom";
+import axios from "axios";
 
 export async function loader({ params }) {
   const hotel = hotels[params.hotelId - 1];
@@ -14,11 +15,12 @@ export async function action({ request, params }) {
   const hotel = Object.fromEntries(formData);
   const checkIn = Date.parse(hotel.checkin);
   const checkOut = Date.parse(hotel.checkout);
+  const checkedRooms = hotel.checkedRooms.split(",");
   if (hotel.checkedRooms.length === 0) {
     alert("You can't reserve without choosing any room!");
     return null;
   }
-  if (isNaN(checkIn) || isNaN(checkIn)) {
+  if (isNaN(checkIn) || isNaN(checkOut)) {
     alert("Please choose correct dates");
     return null;
   }
@@ -26,6 +28,24 @@ export async function action({ request, params }) {
     alert("Checkout date can't be before checkin date, please try again");
     return null;
   }
+  console.log(hotel);
+
+  const reservationRequests = [];
+  checkedRooms.forEach((room) => {
+    const reservationRequest = {
+      checkInDate: hotel.checkin,
+      checkOutDate: hotel.checkout,
+      roomNumber: room,
+      hotelId: hotel.id,
+      price: 100,
+    };
+    reservationRequests.push(reservationRequest);
+  });
+  const res = await axios.post(
+    "http://localhost:8080/reservation",
+    reservationRequests
+  );
+  console.log(res.data);
   alert("Succesfull reservation, returning to main page");
   return redirect("/");
 }
