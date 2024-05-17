@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App, { loader as hotelsLoader } from "./App.jsx";
 import HotelPage from "./HotelPage.jsx";
-import { loader as hotelLoader } from "./HotelPage";
+import { loader as hotelLoader, action as hotelAction } from "./HotelPage";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
     path: "hotels/:hotelId",
     element: <HotelPage />,
     loader: hotelLoader,
+    action: hotelAction,
   },
 ]);
 
