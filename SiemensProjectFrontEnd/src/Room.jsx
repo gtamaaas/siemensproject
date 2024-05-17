@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function Room({ room, toggledRooms, setToggledRooms }) {
   const [checked, setChecked] = useState(false);
+  const [isReserved, SetIsreserved] = useState(false);
 
   const handleChange = () => {
     setChecked(!checked);
@@ -13,19 +14,38 @@ function Room({ room, toggledRooms, setToggledRooms }) {
       );
     }
   };
-  return (
-    <div>
-      {room.price}
-      {room.isAvailable ? (
+
+  if (isReserved) {
+    return (
+      <div>
+        <div> {room.price}</div>
+        <div> room already reserved </div>
+      </div>
+    );
+  } else if (room.isAvailable) {
+    return (
+      <div>
+        <div> {room.price}</div>
         <label>
-          <input type="checkbox" checked={checked} onChange={handleChange} />
+          <input
+            type="checkbox"
+            name={room.roomNumber}
+            id={room.roomNumber}
+            checked={checked}
+            onChange={handleChange}
+          />
           Reserve this room
         </label>
-      ) : (
+      </div>
+    );
+  } else if (!room.isAvailable) {
+    return (
+      <div>
+        <div> {room.price}</div>
         <div> room not available </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default Room;
