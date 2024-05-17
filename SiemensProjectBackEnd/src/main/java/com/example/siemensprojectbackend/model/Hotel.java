@@ -17,7 +17,7 @@ public class Hotel {
     private double latitude;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "hotel_id")
     private List<Room> rooms;
 
     public Hotel() {
