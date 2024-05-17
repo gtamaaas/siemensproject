@@ -12,8 +12,22 @@ export async function loader({ params }) {
 export async function action({ request, params }) {
   const formData = await request.formData();
   const hotel = Object.fromEntries(formData);
-  console.log(hotel);
-  return null;
+  const checkIn = Date.parse(hotel.checkin);
+  const checkOut = Date.parse(hotel.checkout);
+  if (hotel.checkedRooms.length === 0) {
+    alert("You can't reserve without choosing any room!");
+    return null;
+  }
+  if (isNaN(checkIn) || isNaN(checkIn)) {
+    alert("Please choose correct dates");
+    return null;
+  }
+  if (checkIn >= checkOut) {
+    alert("Checkout date can't be before checkin date, please try again");
+    return null;
+  }
+  alert("Succesfull reservation, returning to main page");
+  return redirect("/");
 }
 
 function HotelPage() {
@@ -67,6 +81,8 @@ function HotelPage() {
           onChange={onChangeCheckOutDate}
         ></input>
         <input type="text" />
+        <input type="hidden" name="id" value={hotel.id}></input>
+        <input type="hidden" name="checkedRooms" value={toggledRooms}></input>
         <button type="submit">Submit</button>
       </div>
     </Form>
