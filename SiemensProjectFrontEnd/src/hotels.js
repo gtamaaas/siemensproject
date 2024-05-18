@@ -31,7 +31,7 @@ export const hotels = [
     "name": "Grand Hotel Italia",
     "latitude": 46.7522792440665,
     "longitude": 23.605990381045697,
-    "distance": 5,
+    "distance": 3,
     "rooms": [
     {
     "roomNumber": 41,
