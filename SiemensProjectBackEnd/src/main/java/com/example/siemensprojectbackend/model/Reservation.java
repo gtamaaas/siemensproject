@@ -12,6 +12,8 @@ public class Reservation {
     private LocalDateTime checkInDate;
     private LocalDateTime checkoutDate;
     private Integer price;
+
+    private Long hotelId;
     @OneToOne
     @JoinColumn(name = "room_id")
     private Room room;
@@ -19,6 +21,13 @@ public class Reservation {
     public Reservation() {
     }
 
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
 
     public Long getId() {
         return id;
