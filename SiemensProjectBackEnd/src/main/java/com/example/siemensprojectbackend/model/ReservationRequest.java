@@ -6,26 +6,26 @@ public class ReservationRequest {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private Integer price;
-    private Integer roomNumber;
+    private Long roomNumber;
 
-    private Integer hotelId;
+    private Long hotelId;
 
     public ReservationRequest() {
     }
 
-    public ReservationRequest(LocalDate checkInDate, LocalDate checkoutDate, Integer price, Integer roomNumber, Integer hotelId) {
+    public ReservationRequest(LocalDate checkInDate, LocalDate checkOutDate, Integer price, Long roomNumber, Long hotelId) {
         this.checkInDate = checkInDate;
-        this.checkOutDate = checkoutDate;
+        this.checkOutDate = checkOutDate;
         this.price = price;
         this.roomNumber = roomNumber;
         this.hotelId = hotelId;
     }
 
-    public Integer getHotelId() {
+    public Long getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 
@@ -53,11 +53,11 @@ public class ReservationRequest {
         this.price = price;
     }
 
-    public Integer getRoomNumber() {
+    public Long getRoomNumber() {
         return roomNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
+    public void setRoomNumber(Long roomNumber) {
         this.roomNumber = roomNumber;
     }
 
