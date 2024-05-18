@@ -1,9 +1,7 @@
 package com.example.siemensprojectbackend;
 
-import com.example.siemensprojectbackend.model.Coordinates;
 import com.example.siemensprojectbackend.model.Hotel;
 import com.example.siemensprojectbackend.repository.HotelRepository;
-import com.example.siemensprojectbackend.utils.DistanceCalculator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
