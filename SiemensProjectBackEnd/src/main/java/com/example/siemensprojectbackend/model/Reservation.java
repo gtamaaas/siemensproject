@@ -14,10 +14,6 @@ public class Reservation {
     private Integer price;
 
     private Long hotelId;
-    @OneToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
-
     public Reservation() {
     }
 
@@ -61,11 +57,14 @@ public class Reservation {
         this.price = price;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", checkInDate=" + checkInDate +
+                ", checkoutDate=" + checkoutDate +
+                ", price=" + price +
+                ", hotelId=" + hotelId +
+                '}';
     }
 }

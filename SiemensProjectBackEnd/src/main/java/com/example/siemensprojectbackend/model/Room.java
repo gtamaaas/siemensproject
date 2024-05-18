@@ -1,10 +1,7 @@
 package com.example.siemensprojectbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Room {
@@ -20,6 +17,10 @@ public class Room {
     private boolean available;
 
     private Long price;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 
     public Room() {
     }
@@ -69,5 +70,29 @@ public class Room {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomNumber=" + roomNumber +
+                ", type=" + type +
+                ", available=" + available +
+                ", price=" + price +
+                ", reservation=" + reservation +
+                '}';
     }
 }
