@@ -57,12 +57,13 @@ export async function loader() {
 
 function App() {
   const loadedHotels = useLoaderData();
-
-  return (
-    <>
-      <SearchBar hotels={loadedHotels} />
-    </>
-  );
+  if (loadedHotels.size != 0)
+    return (
+      <>
+        <SearchBar hotels={loadedHotels} />
+      </>
+    );
+  else return <div>please enable geolocation</div>;
 }
 
 export default App;
