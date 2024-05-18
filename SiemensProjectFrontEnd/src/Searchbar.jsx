@@ -9,16 +9,18 @@ function SearchBar({ hotels }) {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-red-100 flex flex-col">
+      <div className="bg-gray-100 flex flex-col">
         <input
-          className="text-center"
+          className="border-2 border-gray-600 text-center"
           placeholder="Enter desired radius"
           onChange={(event) => setSearchInput(event.target.value)}
         />
         {filteredHotels.length > 0 ? (
           filteredHotels.map((hotel) => <HotelItem hotel={hotel} />)
         ) : (
-          <div>No hotels found within the specified radius.</div>
+          <div className="bg-red-100">
+            No hotels found within the specified radius.
+          </div>
         )}
       </div>
     </div>
