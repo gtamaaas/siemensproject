@@ -25,7 +25,13 @@ export async function action({ request, params }) {
     alert("Please choose correct dates");
     return null;
   }
-  if (checkIn >= checkOut) {
+  if (checkIn == checkOut) {
+    alert(
+      "Checkout date can't be on the same date as the checkin date, please try again"
+    );
+    return null;
+  }
+  if (checkIn > checkOut) {
     alert("Checkout date can't be before checkin date, please try again");
     return null;
   }
@@ -53,7 +59,6 @@ export async function action({ request, params }) {
 
 function HotelPage() {
   const [toggledRooms, setToggledRooms] = useState([]);
-  const [reservedRooms, setReservedRooms] = useState([]);
   const [checkinDate, setCheckinDate] = useState();
   const [checkoutDate, setCheckOutDate] = useState();
 
@@ -76,32 +81,48 @@ function HotelPage() {
   };
 
   return (
-    <Form method="post">
-      <div key={hotel.id} class="flex h-screen flex-col">
-        <div>{hotel.name}</div>
-        {rooms}
-        <label for="checkin">Checkin date:</label>
-        <input
-          type="date"
-          value={checkinDate}
-          id="checkin"
-          name="checkin"
-          onChange={onChangeCheckInDate}
-        ></input>
-        <label for="checkin">Checkout date:</label>
-        <input
-          type="date"
-          value={checkoutDate}
-          id="checkout"
-          name="checkout"
-          onChange={onChangeCheckOutDate}
-        ></input>
-        <input type="text" />
-        <input type="hidden" name="id" value={hotel.id}></input>
-        <input type="hidden" name="checkedRooms" value={toggledRooms}></input>
-        <button type="submit">Submit</button>
-      </div>
-    </Form>
+    <div className="flex justify-center items-center h-screen">
+      <Form method="post">
+        <div
+          key={hotel.id}
+          class="flex h-screen flex-col justify-between border-2  w-96"
+        >
+          <div className="text-3xl text-center">{hotel.name}</div>
+          <div>
+            <div>{rooms}</div>
+            <div className="flex flex-col">
+              <label for="checkin">Checkin date:</label>
+              <input
+                className="border-2 border-gray-600"
+                type="date"
+                value={checkinDate}
+                id="checkin"
+                name="checkin"
+                onChange={onChangeCheckInDate}
+              ></input>
+              <label for="checkin">Checkout date:</label>
+              <input
+                className="border-2 border-gray-600"
+                type="date"
+                value={checkoutDate}
+                id="checkout"
+                name="checkout"
+                onChange={onChangeCheckOutDate}
+              ></input>
+            </div>
+          </div>
+          <input type="text" />
+          <input type="hidden" name="id" value={hotel.id}></input>
+          <input type="hidden" name="checkedRooms" value={toggledRooms}></input>
+          <button
+            className="bg-blue-500 text-white rounded-3xl p-3 m-3"
+            type="submit"
+          >
+            Make reservation
+          </button>
+        </div>
+      </Form>
+    </div>
   );
 }
 
