@@ -3,11 +3,13 @@ package com.example.siemensprojectbackend.controller;
 import com.example.siemensprojectbackend.model.Coordinates;
 import com.example.siemensprojectbackend.model.CoordinatesRequest;
 import com.example.siemensprojectbackend.utils.DistanceCalculator;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(originPatterns = "*")
 public class DistanceController {
 
     @PostMapping("/coordinates")
