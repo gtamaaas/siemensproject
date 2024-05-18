@@ -1,13 +1,14 @@
 import Room from "./Room";
 import { useState } from "react";
-import { hotels } from "./hotels";
 import { useLoaderData } from "react-router-dom";
 import { Form, redirect } from "react-router-dom";
 import axios from "axios";
 
 export async function loader({ params }) {
-  const hotel = hotels[params.hotelId - 1];
-  return hotel;
+  const hotel = await axios.get(
+    "http://localhost:8080/hotels/" + params.hotelId
+  );
+  return hotel.data;
 }
 
 export async function action({ request, params }) {
@@ -55,7 +56,9 @@ function HotelPage() {
   const [reservedRooms, setReservedRooms] = useState([]);
   const [checkinDate, setCheckinDate] = useState();
   const [checkoutDate, setCheckOutDate] = useState();
+
   const hotel = useLoaderData();
+  console.log(hotel);
   const rooms = hotel.rooms.map((room) => (
     <Room
       room={room}
@@ -63,13 +66,6 @@ function HotelPage() {
       setToggledRooms={setToggledRooms}
     />
   ));
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(toggledRooms);
-    console.log(new Date(checkinDate));
-    console.log(new Date(checkoutDate));
-  };
 
   const onChangeCheckInDate = (e) => {
     setCheckinDate(e.target.value);
