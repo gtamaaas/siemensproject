@@ -1,8 +1,6 @@
 package com.example.siemensprojectbackend.controller;
 
 import com.example.siemensprojectbackend.model.Hotel;
-import com.example.siemensprojectbackend.model.HotelAndReservations;
-import com.example.siemensprojectbackend.model.Reservation;
 import com.example.siemensprojectbackend.repository.HotelRepository;
 import com.example.siemensprojectbackend.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,7 +29,6 @@ public class HotelController {
 
     @GetMapping("/hotels/{id}")
     public Hotel getHotel(@PathVariable Long id) {
-        Hotel hotel = hotelRepository.findById(id);
-        return hotel;
+        return hotelRepository.findById(id);
     }
 }
