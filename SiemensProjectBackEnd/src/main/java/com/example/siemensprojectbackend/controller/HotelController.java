@@ -30,12 +30,8 @@ public class HotelController {
     }
 
     @GetMapping("/hotels/{id}")
-    public HotelAndReservations getHotelAndReservations(@PathVariable Long id) {
+    public Hotel getHotel(@PathVariable Long id) {
         Hotel hotel = hotelRepository.findById(id);
-        HotelAndReservations hotelAndReservations = new HotelAndReservations();
-        hotelAndReservations.setHotel(hotel);
-        List<Reservation> reservations = reservationRepository.findAllByHotelId(id);
-        hotelAndReservations.setReservationList(reservations);
-        return hotelAndReservations;
+        return hotel;
     }
 }
