@@ -17,29 +17,37 @@ function Room({ room, toggledRooms, setToggledRooms }) {
 
   if (reservation != null) {
     return (
-      <div>
-        <div> {reservation.price} paid</div>
+      <div className="flex flex-col bg-green-100 border-2">
+        <div> Paid: {reservation.price}</div>
+        <div>Reserved:{}</div>
         <div>
-          On date {reservation.checkInDate + " " + reservation.checkInDate}
+          {"(" +
+            reservation.checkInDate.substring(0, 10) +
+            ") - (" +
+            reservation.checkoutDate.substring(0, 10) +
+            ")"}
         </div>
-        <div> room already reserved </div>
+        <div> Room already reserved! </div>
       </div>
     );
   } else if (room.isAvailable) {
     return (
-      <div>
-        <div> {room.price}</div>
-        <label>
-          <input type="checkbox" checked={checked} onChange={handleChange} />
-          Reserve this room
-        </label>
+      <div className="bg-blue-100 flex flex-col border-2">
+        <div className="p-1"> Price: {room.price}</div>
+        <div className="p-1"> Type of room: {room.type}</div>
+        <div className="p-1">
+          <label>
+            <input type="checkbox" checked={checked} onChange={handleChange} />
+            Reserve this room
+          </label>
+        </div>
       </div>
     );
   } else if (!room.isAvailable) {
     return (
-      <div>
-        <div> {room.price}</div>
-        <div> room not available </div>
+      <div className="bg-red-100 border-2">
+        <div> Price: {room.price}</div>
+        <div> Room not available! </div>
       </div>
     );
   }
