@@ -2,8 +2,8 @@ import { useState } from "react";
 
 function Room({ room, toggledRooms, setToggledRooms }) {
   const [checked, setChecked] = useState(false);
-  const [isReserved, SetIsreserved] = useState(false);
 
+  const reservation = room.reservation;
   const handleChange = () => {
     setChecked(!checked);
     if (toggledRooms.indexOf(room.roomNumber) == -1) {
@@ -15,10 +15,13 @@ function Room({ room, toggledRooms, setToggledRooms }) {
     }
   };
 
-  if (isReserved) {
+  if (reservation != null) {
     return (
       <div>
-        <div> {room.price}</div>
+        <div> {reservation.price} paid</div>
+        <div>
+          On date {reservation.checkInDate + " " + reservation.checkInDate}
+        </div>
         <div> room already reserved </div>
       </div>
     );
@@ -27,13 +30,7 @@ function Room({ room, toggledRooms, setToggledRooms }) {
       <div>
         <div> {room.price}</div>
         <label>
-          <input
-            type="checkbox"
-            name={room.roomNumber}
-            id={room.roomNumber}
-            checked={checked}
-            onChange={handleChange}
-          />
+          <input type="checkbox" checked={checked} onChange={handleChange} />
           Reserve this room
         </label>
       </div>
